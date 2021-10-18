@@ -1,4 +1,82 @@
 .turivius-card.rs-panel {
   background-color: #fff;
-  margin: 5px;
+  margin: 15px 8px;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #15c16b;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  /* height: 30px; */
+  text-align: center;
+  width: 200px;
+  padding: 5px;
+  margin: 0px;
+}
+
+.data_jul{
+  margin-left: 10px;
+}
+
+.turivius-card h2, h4 {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.btns {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  min-height: 80px;
+  resize: none;
+  outline: none;
+}
+
+.ementa-desisao {
+  font-size: 15px;
+  margin-top: 30px;
+}
+
+.btn svg {
+  color: #06e606;
+  margin-left: 10px;
+}
+
+.btn {
+  background-color: #123b71;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  margin-left: 20px;
+  width: 150px;
+  height: 35px;
+  transition: background 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:hover {
+  background-color: #1f4b85;
+}
+
+.content-rating{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-date{
+  display: flex;
+  align-items: center;
 }

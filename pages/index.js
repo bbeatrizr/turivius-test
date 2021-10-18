@@ -3,7 +3,7 @@ import Card from '../components/card/Card'
 import { Container, Header, Content, Grid, Row, Col } from 'rsuite';
 import TuriviusHeader from '../components/layout/Header';
 
-export default function Home(props) {
+export default function Home({ cards, entities }) {
   return (
     <div>
       <Head>
@@ -20,9 +20,13 @@ export default function Home(props) {
         <Content>
           <Grid fluid>
             <Row>
-              {props.cards.map(card => <Col key={card.id} sm={24}>
-                <Card {...card} />
-              </Col>)}
+              {cards.map(card => {
+                return (
+                  <Col key={card.id} sm={24}>
+                    <Card card={card} entity={entities.find(entity => entity.id === card.entity)} />
+                  </Col>
+                )}
+              )}
             </Row>
           </Grid>
         </Content>
@@ -33,7 +37,9 @@ export default function Home(props) {
 
 Home.getInitialProps = async () => {
   const cards = await (await fetch('http://localhost:3000/api/cards')).json()
+  const entities = await (await fetch('http://localhost:3000/api/entities')).json()
   return {
-    cards
+    cards,
+    entities
   }
 }

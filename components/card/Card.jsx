@@ -1,21 +1,125 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Panel } from 'rsuite';
 import '../../styles/Card.css';
+import Modal from 'react-modal';
+import Rating from '../Rating';
+import { FaCheck } from 'react-icons/fa';
 
-class Card extends React.Component {
+const customStyles = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        zIndex: '999',
+        overflowY: 'auto',
 
-    render() {
-        const { content } = this.props
-        return (
-            <Panel className="turivius-card"
-                shaded
-                bordered>
-                {content.map(c => <p key={c.title}>
-                    <b>{c.title}:</b> {c.content}
-                </p>)}
-            </Panel>
-        )
+      },
+    content: {  
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width: '70%',
+        maxHeight: '90%'
+    },
+  };
+
+function Card({ card: { content, data_jul, data_pub, nome }, entity }) {
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [copySuccess, setCopySuccess] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
     }
+    
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+    const ementa = content.find(c => c.title === "Ementa")
+
+    const handleClipboard = () => {
+        navigator.clipboard.writeText(ementa.content)
+        setCopySuccess(true)
+    }
+
+    return (
+        <Panel className="turivius-card" shaded bordered>
+            <h2>Tribunal: {entity.name}</h2>
+            <h4>{nome}</h4>
+            <br />
+            <div className="content-rating">
+                <div className="card-date">
+                    <p className="date">{data_pub}</p>
+                    <p className="date data_jul">{data_jul}</p>
+                </div>
+                <Rating/>
+            </div>
+          
+        
+            {content.map(c => {
+                return ( 
+                    <div className="ementa-desisao" key={c.title}>
+                        <b>{c.title}</b>
+                        <p>{c.content}</p>
+                    </div>
+                )}
+            )}
+
+            <div className="btns">
+                <button
+                    className="btn"
+                    onClick={handleClipboard}
+                >Copiar Ementa
+                {copySuccess && <FaCheck />}
+                </button>
+
+                <button 
+                    className="btn" 
+                    onClick={openModal}>Expandir
+                </button>
+                <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                >
+                    <h2>Tribunal: {entity.name}</h2>
+                    <h3>{nome}</h3>
+                    <br/>
+                    <div className="content-rating">
+                        <div className="card-date">
+                            <p className="date">{data_pub}</p>
+                            <p className="date data_jul">{data_jul}</p>
+                        </div>
+                        <Rating/>
+                    </div>
+                    {content.map(c => {
+                        return ( 
+                            <div className="ementa-desisao" key={c.title}>
+                                <b>{c.title}</b>
+                                <p>{c.content}</p>
+                            </div>
+                        )}
+                    )}
+                    <div className="btns">
+                        <button
+                            className="btn"
+                            onClick={closeModal}
+                        >
+                            Fechar
+                        </button>
+                    </div>
+                    
+                </Modal>
+            </div>
+        </Panel>
+    )
 }
 
 export default Card;
