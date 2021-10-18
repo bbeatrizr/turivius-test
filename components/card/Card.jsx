@@ -29,6 +29,8 @@ const customStyles = {
     },
   };
 
+// trasformei o compomente que estava em classe em componete funcional por uma questão de estilo mesmo. :)
+
 function Card({ card: { content, data_jul, data_pub, nome }, entity }) {
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [copySuccess, setCopySuccess] = useState(false);
@@ -60,7 +62,6 @@ function Card({ card: { content, data_jul, data_pub, nome }, entity }) {
                 </div>
                 <Rating/>
             </div>
-          
         
             {content.map(c => {
                 return ( 
@@ -83,6 +84,8 @@ function Card({ card: { content, data_jul, data_pub, nome }, entity }) {
                     className="btn" 
                     onClick={openModal}>Expandir
                 </button>
+
+                {/* Optei por utilizar um modal, pois acredito que para a experiencia do usuario seria melhor do que entrar em uma nova guia por que como é apenas um card com as mesmas informações, acredito que não seria necessario abrir uma nova pagina. Assim, o usuario poderia navegar em um card sem precisar ir para uma nova guia. */}
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
